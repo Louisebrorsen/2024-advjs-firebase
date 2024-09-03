@@ -1,6 +1,9 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import { useUsers } from './modules/useUsers';
+
+const { user, login, logout } = useUsers();
 </script>
 
 <template>
@@ -14,6 +17,13 @@ import HelloWorld from './components/HelloWorld.vue'
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
       </nav>
+
+      <div>
+        <button v-if="!user" @click="login(`admin@admin.com`, `123456`)">Login</button>
+        <button v-if="user" @click="logout">Logout</button>
+        <p v-if="user">Logged in as: {{ user.email }}</p>
+      </div>
+
     </div>
   </header>
 
